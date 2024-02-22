@@ -15,10 +15,14 @@ class Player{
         this.friction = friction;
     }   
 
-    
+    public PVector getPosition(){
+        return postion;
+    }
 
     public void updatePlayer(){
+        println("UpDating...");
         velocity.add(a);
+        println(velocity.array());
         postion.add(velocity);
         velocity.x *= friction.x;
         velocity.y *= friction.y;
@@ -31,14 +35,22 @@ class Player{
 
 
     public void keyPressed(){
-        if(key == 'w')
+        if(key == 'w'){
+            println("Pressed");
             a.y = -acceleration.y;
-        else if(key == 's')
+        }
+        else if(key == 's'){
+            println("Pressed");
             a.y = acceleration.y;
-        else if(key == 'a')
+        }
+        else if(key == 'a'){
+            println("Pressed");
             a.x = -acceleration.x;
-        else if(key == 'd')
+        }
+        else if(key == 'd'){
+            println("Pressed");
             a.x = acceleration.x;
+        }
     }
     
     public void keyReleased(){

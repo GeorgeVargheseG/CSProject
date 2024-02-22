@@ -1,0 +1,21 @@
+class Enemy {
+
+    private PVector enemyPos;
+    private PVector velocity;
+
+    public Enemy(PVector initPos, PVector velocity) {
+        enemyPos = initPos;
+        this.velocity = velocity;
+    }
+
+    public PVector getPosition(){
+        return enemyPos;
+    }
+
+    public void follow(PVector pos){
+        PVector direction = (pos - enemyPos).normalize();
+
+        enemyPos.add();
+  
+    }
+}
