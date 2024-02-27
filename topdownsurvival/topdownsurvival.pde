@@ -21,7 +21,10 @@ void draw(){
   for(int i = 0; i < enemies.size(); i++){
     enemies.get(i).follow(player.getPosition());
     enemies.get(i).draw();
+    enemies.get(i).attack(player.getPosition());
   }
+
+  
 }
 
 void mouseClicked(){

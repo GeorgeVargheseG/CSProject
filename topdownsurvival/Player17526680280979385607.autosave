@@ -20,7 +20,9 @@ class Player{
     }
 
     public void updatePlayer(){
+        println("Updating...");
         velocity.add(a);
+        println(velocity.array());
         position.add(velocity);
         velocity.x *= friction.x;
         velocity.y *= friction.y;

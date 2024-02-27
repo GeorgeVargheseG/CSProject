@@ -23,14 +23,6 @@ class Enemy {
         circle(position.x,position.y,20);
     }
 
-    public void attack(PVector target){
-        if(PVector.dist(target,position) < 10){
-            println("attack");
-        }
-    }
-
-
-
 
    
 }
