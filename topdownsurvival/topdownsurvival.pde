@@ -19,6 +19,7 @@ void draw(){
   enemy.follow(player.getPosition());
   enemy.drawEnemy();
 player.drawPlayer();
+player.checkPlayerPosition();
 
   
 }
