@@ -20,7 +20,7 @@ class Player{
     }
 
     public void updatePlayer(){
-        println("UpDating...");
+        println("Updating...");
         velocity.add(a);
         println(velocity.array());
         postion.add(velocity);

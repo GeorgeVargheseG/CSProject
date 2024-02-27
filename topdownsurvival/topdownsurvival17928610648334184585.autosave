@@ -1,14 +1,27 @@
 Player player;
 Enemy enemy;
+PFont font;
+
 ArrayList<Enemy> enemies;
 PVector acceleration = new PVector(.9,.9);
 PVector friction = new PVector(.8,.8);
 
 void setup(){
   size(640,480);
+  //Test Enemy
+  enemy = new Enemy(new PVector(width/2,height/2), new PVector(.2,.2));
+  //
+
+
+
   player = new Player(new PVector(width/2,height/2),acceleration, 
  friction);
-  enemies = new ArrayList<Enemy>();  
+  enemies = new ArrayList<Enemy>();
+
+font = createFont("Arial",16,true);
+
+ 
+  
 }
 
 void draw(){
@@ -18,8 +31,14 @@ void draw(){
 
   for(int i = 0; i < enemies.size(); i++){
     enemies.get(i).follow(player.getPosition());
-    enemies.get(i).draw();
+    enemies.get(i).drawEnemy();
   }
+
+  textFont(font,16);                  // STEP 3 Specify font to be used
+  fill(255);                         // STEP 4 Specify font color
+  text("Click E to start new wave",10,100);
+
+  
 }
 
 void mouseClicked(){

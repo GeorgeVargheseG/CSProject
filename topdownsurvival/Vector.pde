@@ -4,6 +4,7 @@ static class Vector {
         return new PVector(one.x*two.x,one.y*two.y);
     }
 
+
     
 
 }
