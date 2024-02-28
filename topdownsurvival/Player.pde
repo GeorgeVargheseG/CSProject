@@ -7,46 +7,85 @@ class Player{
   private PVector acceleration;
   private PVector friction;
 
-    Player(PVector initPosition, PVector acceleration, PVector friction){
+  public boolean isAttacked = false;
+
+  public int lastAttacked;
+
+    private int health;
+
+    Player(PVector initPosition, PVector acceleration, PVector friction, int intialHealth){
         this.position = initPosition;
         this.velocity = new PVector(0, 0);
         this.a = new PVector(0,0);
         this.acceleration = acceleration;
         this.friction = friction;
+        this.health = intialHealth;
     }   
 
-    public PVector getPosition(){
-        return position;
+
+    public int getHealth(){
+        return health;
     }
 
-    public void updatePlayer(){
+    public void takeDamage(int damage){
+        if(health > 0)
+            health -= damage;
+    }
+
+    public boolean isDead(){
+        if(health <= 0){
+            return true;
+        }
+        return false;
+    }
+
+
+    public PVector getPosition(){
+        return position.copy();
+    }
+
+    public PVector getDirection(){
+        return velocity.normalize().copy();
+    }
+
+    public void update(){
         velocity.add(a);
         position.add(velocity);
         velocity.x *= friction.x;
         velocity.y *= friction.y;
     }
 
+    public void draw(){
+        float heading = PVector.sub(new PVector(mouseX,mouseY),position).heading();
 
-    public void drawPlayer(){
-        circle(position.x,position.y,40);
+        pushMatrix();
+        translate(position.x,position.y);
+        rotate(heading);
+        fill(80);
+        fill(255);
+        circle(0,0,40);
+        rect(0,0,90,30);
+        popMatrix();
+        
     }
+
 
 
     public void keyPressed(){
         if(key == 'w'){
-            println("Pressed");
+            print("Pressed");
             a.y = -acceleration.y;
         }
         else if(key == 's'){
-            println("Pressed");
+            print("Pressed");
             a.y = acceleration.y;
         }
         else if(key == 'a'){
-            println("Pressed");
+            print("pressed");
             a.x = -acceleration.x;
         }
         else if(key == 'd'){
-            println("Pressed");
+            print("pressed");
             a.x = acceleration.x;
         }
     }

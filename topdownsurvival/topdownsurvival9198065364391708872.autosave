@@ -1,0 +1,48 @@
+Player player;
+ArrayList<Enemy> enemies;
+ArrayList<Bullet> bullets;
+PVector acceleration = new PVector(.9,.9);
+PVector friction = new PVector(.8,.8);
+
+void setup(){
+  size(640,480);
+enemies = new ArrayList<Enemy>();  
+  bullets = new ArrayList<Bullet>();
+  smooth(4);
+
+  player = new Player(new PVector(width/2,height/2),acceleration, 
+ friction);
+
+}
+
+void draw(){
+  background(0,0,0);
+  player.update();
+  player.draw();
+  player.checkPlayerPosition(); 
+
+  
+  for(Bullet other : bullets){
+    other.render();
+  }
+
+  for(int i = 0; i < enemies.size(); i++){
+    enemies.get(i).follow(player.getPosition());
+    enemies.get(i).draw(player.getPosition());
+    enemies.get(i).attack(player.getPosition());
+  }
+}
+
+void mouseClicked(){
+    PVector playerVelocity = Vector.multiply2D(player.getVelocity().copy(), new PVector(20,20));
+    PVector spawnPos = PVector.add(player.getPosition().copy(), playerVelocity);
+    bullets.add(new Bullet(spawnPos.x,spawnPos.y));
+}
+
+void keyPressed(){
+  player.keyPressed();
+}
+
+void keyReleased(){
+  player.keyReleased();
+}

@@ -1,0 +1,70 @@
+Player player;
+ArrayList<Enemy> enemies;
+ArrayList<Bullet> bullets;
+PVector acceleration = new PVector(.9,.9);
+PVector friction = new PVector(.8,.8);
+
+void setup(){
+  size(640,480);
+enemies = new ArrayList<Enemy>();  
+  bullets = new ArrayList<Bullet>();
+  smooth(4);
+
+  player = new Player(new PVector(width/2,height/2),acceleration, 
+ friction);
+
+
+}
+
+void draw(){
+  background(0,0,0);
+  player.update();
+  player.draw();
+  player.checkPlayerPosition(); 
+
+  for(int i = 0; i<bullets.size(); i++){
+    //move bullet
+    bullets.get(i).move();
+    bullets.get(i).render();
+  
+    for(Enemy enemy : enemies){
+      bullets.get(i).shootEnemy(enemy);
+      if(bullets.get(i).isHit()){
+        bullets.remove(i);
+      }
+    } 
+    if(bullets.get(i).isOutOfBounds())
+      bullets.remove(i);
+  }
+
+  for(int i = 0; i < enemies.size(); i++){
+    enemies.get(i).follow(player.getPosition());
+    enemies.get(i).draw(player.getPosition());
+    enemies.get(i).attack(player.getPosition());
+    if(enemies.get(i).isDead()){
+      enemies.remove(i);
+    }
+  }
+}
+
+void mouseClicked(){
+    enemies.add(new Enemy(new PVector(mouseX,mouseY), new PVector(1,1), 5));
+}
+
+void keyPressed(){
+  if(key == 'e'){
+    PVector playerPosition = player.getPosition();
+    PVector dir = player.getDirection();
+    PVector spawnPoint = PVector.add(playerPosition, Vector.multiply2D(dir,new PVector(70,70)));
+
+    bullets.add(new Bullet(spawnPoint, new PVector(20,20), dir));
+  }
+  player.keyPressed();
+}
+
+void keyReleased(){
+  player.keyReleased();
+}
+
+//Collision, Death, Waves,
+//Sprites Come After
